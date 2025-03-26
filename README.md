@@ -1,4 +1,4 @@
-# common-service
+# proto-service
 - brew install bufbuild/buf/buf
 - buf --version
 - buf config init
