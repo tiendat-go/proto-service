@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package notification.v1;
+
+option go_package = "/gen/go/notification/v1";
+
+service NotificationService {
+    rpc SendNotification(SendNotificationRequest) returns (SendNotificationResponse);
+    rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse);
+}
+
+message SendNotificationRequest {
+    string user_id = 1;
+    string message = 2;
+}
+
+message SendNotificationResponse {
+    bool success = 1;
+}
+
+message GetNotificationsRequest {
+    string user_id = 1;
+}
+
+message GetNotificationsResponse {
+    repeated Notification notifications = 1;
+}
+
+message Notification {
+    string id = 1;
+    string user_id = 2;
+    string message = 3;
+    int64 timestamp = 4;
+}
