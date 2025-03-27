@@ -8,6 +8,7 @@ service DiscoveryService {
     rpc RegisterService(RegisterServiceRequest) returns (RegisterServiceResponse);
     rpc GetServices(GetServicesRequest) returns (GetServicesResponse);
     rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse);
+    rpc Heartbeat(HeartbeatRequest) returns (HeartbeatResponse);
 }
 
 message RegisterServiceRequest {
@@ -31,4 +32,13 @@ message HealthCheckRequest {}
 
 message HealthCheckResponse {
     bool healthy = 1;
+}
+
+message HeartbeatRequest {
+    string service_name = 1;
+    string address = 2;
+}
+
+message HeartbeatResponse {
+    bool success = 1;
 }

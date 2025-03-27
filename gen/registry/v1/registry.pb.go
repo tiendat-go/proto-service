@@ -285,6 +285,102 @@ func (x *HealthCheckResponse) GetHealthy() bool {
 	return false
 }
 
+type HeartbeatRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ServiceName   string                 `protobuf:"bytes,1,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
+	Address       string                 `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HeartbeatRequest) Reset() {
+	*x = HeartbeatRequest{}
+	mi := &file_registry_v1_registry_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HeartbeatRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HeartbeatRequest) ProtoMessage() {}
+
+func (x *HeartbeatRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_v1_registry_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HeartbeatRequest.ProtoReflect.Descriptor instead.
+func (*HeartbeatRequest) Descriptor() ([]byte, []int) {
+	return file_registry_v1_registry_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *HeartbeatRequest) GetServiceName() string {
+	if x != nil {
+		return x.ServiceName
+	}
+	return ""
+}
+
+func (x *HeartbeatRequest) GetAddress() string {
+	if x != nil {
+		return x.Address
+	}
+	return ""
+}
+
+type HeartbeatResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HeartbeatResponse) Reset() {
+	*x = HeartbeatResponse{}
+	mi := &file_registry_v1_registry_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HeartbeatResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HeartbeatResponse) ProtoMessage() {}
+
+func (x *HeartbeatResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_v1_registry_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HeartbeatResponse.ProtoReflect.Descriptor instead.
+func (*HeartbeatResponse) Descriptor() ([]byte, []int) {
+	return file_registry_v1_registry_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *HeartbeatResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
 var File_registry_v1_registry_proto protoreflect.FileDescriptor
 
 const file_registry_v1_registry_proto_rawDesc = "" +
@@ -301,11 +397,17 @@ const file_registry_v1_registry_proto_rawDesc = "" +
 	"\taddresses\x18\x01 \x03(\tR\taddresses\"\x14\n" +
 	"\x12HealthCheckRequest\"/\n" +
 	"\x13HealthCheckResponse\x12\x18\n" +
-	"\ahealthy\x18\x01 \x01(\bR\ahealthy2\x94\x02\n" +
+	"\ahealthy\x18\x01 \x01(\bR\ahealthy\"O\n" +
+	"\x10HeartbeatRequest\x12!\n" +
+	"\fservice_name\x18\x01 \x01(\tR\vserviceName\x12\x18\n" +
+	"\aaddress\x18\x02 \x01(\tR\aaddress\"-\n" +
+	"\x11HeartbeatResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess2\xe0\x02\n" +
 	"\x10DiscoveryService\x12\\\n" +
 	"\x0fRegisterService\x12#.registry.v1.RegisterServiceRequest\x1a$.registry.v1.RegisterServiceResponse\x12P\n" +
 	"\vGetServices\x12\x1f.registry.v1.GetServicesRequest\x1a .registry.v1.GetServicesResponse\x12P\n" +
-	"\vHealthCheck\x12\x1f.registry.v1.HealthCheckRequest\x1a .registry.v1.HealthCheckResponseB\x82\x01\n" +
+	"\vHealthCheck\x12\x1f.registry.v1.HealthCheckRequest\x1a .registry.v1.HealthCheckResponse\x12J\n" +
+	"\tHeartbeat\x12\x1d.registry.v1.HeartbeatRequest\x1a\x1e.registry.v1.HeartbeatResponseB\x82\x01\n" +
 	"\x0fcom.registry.v1B\rRegistryProtoP\x01Z\x13/gen/go/registry/v1\xa2\x02\x03RXX\xaa\x02\vRegistry.V1\xca\x02\vRegistry\\V1\xe2\x02\x17Registry\\V1\\GPBMetadata\xea\x02\fRegistry::V1b\x06proto3"
 
 var (
@@ -320,7 +422,7 @@ func file_registry_v1_registry_proto_rawDescGZIP() []byte {
 	return file_registry_v1_registry_proto_rawDescData
 }
 
-var file_registry_v1_registry_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_registry_v1_registry_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_registry_v1_registry_proto_goTypes = []any{
 	(*RegisterServiceRequest)(nil),  // 0: registry.v1.RegisterServiceRequest
 	(*RegisterServiceResponse)(nil), // 1: registry.v1.RegisterServiceResponse
@@ -328,16 +430,20 @@ var file_registry_v1_registry_proto_goTypes = []any{
 	(*GetServicesResponse)(nil),     // 3: registry.v1.GetServicesResponse
 	(*HealthCheckRequest)(nil),      // 4: registry.v1.HealthCheckRequest
 	(*HealthCheckResponse)(nil),     // 5: registry.v1.HealthCheckResponse
+	(*HeartbeatRequest)(nil),        // 6: registry.v1.HeartbeatRequest
+	(*HeartbeatResponse)(nil),       // 7: registry.v1.HeartbeatResponse
 }
 var file_registry_v1_registry_proto_depIdxs = []int32{
 	0, // 0: registry.v1.DiscoveryService.RegisterService:input_type -> registry.v1.RegisterServiceRequest
 	2, // 1: registry.v1.DiscoveryService.GetServices:input_type -> registry.v1.GetServicesRequest
 	4, // 2: registry.v1.DiscoveryService.HealthCheck:input_type -> registry.v1.HealthCheckRequest
-	1, // 3: registry.v1.DiscoveryService.RegisterService:output_type -> registry.v1.RegisterServiceResponse
-	3, // 4: registry.v1.DiscoveryService.GetServices:output_type -> registry.v1.GetServicesResponse
-	5, // 5: registry.v1.DiscoveryService.HealthCheck:output_type -> registry.v1.HealthCheckResponse
-	3, // [3:6] is the sub-list for method output_type
-	0, // [0:3] is the sub-list for method input_type
+	6, // 3: registry.v1.DiscoveryService.Heartbeat:input_type -> registry.v1.HeartbeatRequest
+	1, // 4: registry.v1.DiscoveryService.RegisterService:output_type -> registry.v1.RegisterServiceResponse
+	3, // 5: registry.v1.DiscoveryService.GetServices:output_type -> registry.v1.GetServicesResponse
+	5, // 6: registry.v1.DiscoveryService.HealthCheck:output_type -> registry.v1.HealthCheckResponse
+	7, // 7: registry.v1.DiscoveryService.Heartbeat:output_type -> registry.v1.HeartbeatResponse
+	4, // [4:8] is the sub-list for method output_type
+	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -354,7 +460,7 @@ func file_registry_v1_registry_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_registry_v1_registry_proto_rawDesc), len(file_registry_v1_registry_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

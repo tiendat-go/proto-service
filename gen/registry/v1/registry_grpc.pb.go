@@ -22,6 +22,7 @@ const (
 	DiscoveryService_RegisterService_FullMethodName = "/registry.v1.DiscoveryService/RegisterService"
 	DiscoveryService_GetServices_FullMethodName     = "/registry.v1.DiscoveryService/GetServices"
 	DiscoveryService_HealthCheck_FullMethodName     = "/registry.v1.DiscoveryService/HealthCheck"
+	DiscoveryService_Heartbeat_FullMethodName       = "/registry.v1.DiscoveryService/Heartbeat"
 )
 
 // DiscoveryServiceClient is the client API for DiscoveryService service.
@@ -31,6 +32,7 @@ type DiscoveryServiceClient interface {
 	RegisterService(ctx context.Context, in *RegisterServiceRequest, opts ...grpc.CallOption) (*RegisterServiceResponse, error)
 	GetServices(ctx context.Context, in *GetServicesRequest, opts ...grpc.CallOption) (*GetServicesResponse, error)
 	HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
+	Heartbeat(ctx context.Context, in *HeartbeatRequest, opts ...grpc.CallOption) (*HeartbeatResponse, error)
 }
 
 type discoveryServiceClient struct {
@@ -71,6 +73,16 @@ func (c *discoveryServiceClient) HealthCheck(ctx context.Context, in *HealthChec
 	return out, nil
 }
 
+func (c *discoveryServiceClient) Heartbeat(ctx context.Context, in *HeartbeatRequest, opts ...grpc.CallOption) (*HeartbeatResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(HeartbeatResponse)
+	err := c.cc.Invoke(ctx, DiscoveryService_Heartbeat_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DiscoveryServiceServer is the server API for DiscoveryService service.
 // All implementations must embed UnimplementedDiscoveryServiceServer
 // for forward compatibility.
@@ -78,6 +90,7 @@ type DiscoveryServiceServer interface {
 	RegisterService(context.Context, *RegisterServiceRequest) (*RegisterServiceResponse, error)
 	GetServices(context.Context, *GetServicesRequest) (*GetServicesResponse, error)
 	HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
+	Heartbeat(context.Context, *HeartbeatRequest) (*HeartbeatResponse, error)
 	mustEmbedUnimplementedDiscoveryServiceServer()
 }
 
@@ -96,6 +109,9 @@ func (UnimplementedDiscoveryServiceServer) GetServices(context.Context, *GetServ
 }
 func (UnimplementedDiscoveryServiceServer) HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HealthCheck not implemented")
+}
+func (UnimplementedDiscoveryServiceServer) Heartbeat(context.Context, *HeartbeatRequest) (*HeartbeatResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Heartbeat not implemented")
 }
 func (UnimplementedDiscoveryServiceServer) mustEmbedUnimplementedDiscoveryServiceServer() {}
 func (UnimplementedDiscoveryServiceServer) testEmbeddedByValue()                          {}
@@ -172,6 +188,24 @@ func _DiscoveryService_HealthCheck_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DiscoveryService_Heartbeat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HeartbeatRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DiscoveryServiceServer).Heartbeat(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DiscoveryService_Heartbeat_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DiscoveryServiceServer).Heartbeat(ctx, req.(*HeartbeatRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DiscoveryService_ServiceDesc is the grpc.ServiceDesc for DiscoveryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -190,6 +224,10 @@ var DiscoveryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "HealthCheck",
 			Handler:    _DiscoveryService_HealthCheck_Handler,
+		},
+		{
+			MethodName: "Heartbeat",
+			Handler:    _DiscoveryService_Heartbeat_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
