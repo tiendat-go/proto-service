@@ -205,6 +205,86 @@ func (x *GetServicesResponse) GetAddresses() []string {
 	return nil
 }
 
+type HealthCheckRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HealthCheckRequest) Reset() {
+	*x = HealthCheckRequest{}
+	mi := &file_registry_v1_registry_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HealthCheckRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HealthCheckRequest) ProtoMessage() {}
+
+func (x *HealthCheckRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_v1_registry_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HealthCheckRequest.ProtoReflect.Descriptor instead.
+func (*HealthCheckRequest) Descriptor() ([]byte, []int) {
+	return file_registry_v1_registry_proto_rawDescGZIP(), []int{4}
+}
+
+type HealthCheckResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Healthy       bool                   `protobuf:"varint,1,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HealthCheckResponse) Reset() {
+	*x = HealthCheckResponse{}
+	mi := &file_registry_v1_registry_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HealthCheckResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HealthCheckResponse) ProtoMessage() {}
+
+func (x *HealthCheckResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_v1_registry_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HealthCheckResponse.ProtoReflect.Descriptor instead.
+func (*HealthCheckResponse) Descriptor() ([]byte, []int) {
+	return file_registry_v1_registry_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *HealthCheckResponse) GetHealthy() bool {
+	if x != nil {
+		return x.Healthy
+	}
+	return false
+}
+
 var File_registry_v1_registry_proto protoreflect.FileDescriptor
 
 const file_registry_v1_registry_proto_rawDesc = "" +
@@ -218,10 +298,14 @@ const file_registry_v1_registry_proto_rawDesc = "" +
 	"\x12GetServicesRequest\x12!\n" +
 	"\fservice_name\x18\x01 \x01(\tR\vserviceName\"3\n" +
 	"\x13GetServicesResponse\x12\x1c\n" +
-	"\taddresses\x18\x01 \x03(\tR\taddresses2\xc2\x01\n" +
+	"\taddresses\x18\x01 \x03(\tR\taddresses\"\x14\n" +
+	"\x12HealthCheckRequest\"/\n" +
+	"\x13HealthCheckResponse\x12\x18\n" +
+	"\ahealthy\x18\x01 \x01(\bR\ahealthy2\x94\x02\n" +
 	"\x10DiscoveryService\x12\\\n" +
 	"\x0fRegisterService\x12#.registry.v1.RegisterServiceRequest\x1a$.registry.v1.RegisterServiceResponse\x12P\n" +
-	"\vGetServices\x12\x1f.registry.v1.GetServicesRequest\x1a .registry.v1.GetServicesResponseB\x82\x01\n" +
+	"\vGetServices\x12\x1f.registry.v1.GetServicesRequest\x1a .registry.v1.GetServicesResponse\x12P\n" +
+	"\vHealthCheck\x12\x1f.registry.v1.HealthCheckRequest\x1a .registry.v1.HealthCheckResponseB\x82\x01\n" +
 	"\x0fcom.registry.v1B\rRegistryProtoP\x01Z\x13/gen/go/registry/v1\xa2\x02\x03RXX\xaa\x02\vRegistry.V1\xca\x02\vRegistry\\V1\xe2\x02\x17Registry\\V1\\GPBMetadata\xea\x02\fRegistry::V1b\x06proto3"
 
 var (
@@ -236,20 +320,24 @@ func file_registry_v1_registry_proto_rawDescGZIP() []byte {
 	return file_registry_v1_registry_proto_rawDescData
 }
 
-var file_registry_v1_registry_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_registry_v1_registry_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_registry_v1_registry_proto_goTypes = []any{
 	(*RegisterServiceRequest)(nil),  // 0: registry.v1.RegisterServiceRequest
 	(*RegisterServiceResponse)(nil), // 1: registry.v1.RegisterServiceResponse
 	(*GetServicesRequest)(nil),      // 2: registry.v1.GetServicesRequest
 	(*GetServicesResponse)(nil),     // 3: registry.v1.GetServicesResponse
+	(*HealthCheckRequest)(nil),      // 4: registry.v1.HealthCheckRequest
+	(*HealthCheckResponse)(nil),     // 5: registry.v1.HealthCheckResponse
 }
 var file_registry_v1_registry_proto_depIdxs = []int32{
 	0, // 0: registry.v1.DiscoveryService.RegisterService:input_type -> registry.v1.RegisterServiceRequest
 	2, // 1: registry.v1.DiscoveryService.GetServices:input_type -> registry.v1.GetServicesRequest
-	1, // 2: registry.v1.DiscoveryService.RegisterService:output_type -> registry.v1.RegisterServiceResponse
-	3, // 3: registry.v1.DiscoveryService.GetServices:output_type -> registry.v1.GetServicesResponse
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
+	4, // 2: registry.v1.DiscoveryService.HealthCheck:input_type -> registry.v1.HealthCheckRequest
+	1, // 3: registry.v1.DiscoveryService.RegisterService:output_type -> registry.v1.RegisterServiceResponse
+	3, // 4: registry.v1.DiscoveryService.GetServices:output_type -> registry.v1.GetServicesResponse
+	5, // 5: registry.v1.DiscoveryService.HealthCheck:output_type -> registry.v1.HealthCheckResponse
+	3, // [3:6] is the sub-list for method output_type
+	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -266,7 +354,7 @@ func file_registry_v1_registry_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_registry_v1_registry_proto_rawDesc), len(file_registry_v1_registry_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -7,6 +7,7 @@ option go_package = "/gen/go/registry/v1";
 service DiscoveryService {
     rpc RegisterService(RegisterServiceRequest) returns (RegisterServiceResponse);
     rpc GetServices(GetServicesRequest) returns (GetServicesResponse);
+    rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse);
 }
 
 message RegisterServiceRequest {
@@ -24,4 +25,10 @@ message GetServicesRequest {
 
 message GetServicesResponse {
     repeated string addresses = 1;
+}
+
+message HealthCheckRequest {}
+
+message HealthCheckResponse {
+    bool healthy = 1;
 }
