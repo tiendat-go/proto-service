@@ -19,6 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
+	CryptoService_GetServerTime_FullMethodName     = "/crypto.v1.CryptoService/GetServerTime"
+	CryptoService_GetDepth_FullMethodName          = "/crypto.v1.CryptoService/GetDepth"
+	CryptoService_GetTrades_FullMethodName         = "/crypto.v1.CryptoService/GetTrades"
 	CryptoService_GetKlinesBySymbol_FullMethodName = "/crypto.v1.CryptoService/GetKlinesBySymbol"
 )
 
@@ -26,6 +29,9 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CryptoServiceClient interface {
+	GetServerTime(ctx context.Context, in *GetServerTimeRequest, opts ...grpc.CallOption) (*GetServerTimeResponse, error)
+	GetDepth(ctx context.Context, in *GetDepthRequest, opts ...grpc.CallOption) (*GetDepthResponse, error)
+	GetTrades(ctx context.Context, in *GetTradesRequest, opts ...grpc.CallOption) (*GetTradesResponse, error)
 	GetKlinesBySymbol(ctx context.Context, in *GetKlinesBySymbolRequest, opts ...grpc.CallOption) (*GetKlinesBySymbolResponse, error)
 }
 
@@ -35,6 +41,36 @@ type cryptoServiceClient struct {
 
 func NewCryptoServiceClient(cc grpc.ClientConnInterface) CryptoServiceClient {
 	return &cryptoServiceClient{cc}
+}
+
+func (c *cryptoServiceClient) GetServerTime(ctx context.Context, in *GetServerTimeRequest, opts ...grpc.CallOption) (*GetServerTimeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetServerTimeResponse)
+	err := c.cc.Invoke(ctx, CryptoService_GetServerTime_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cryptoServiceClient) GetDepth(ctx context.Context, in *GetDepthRequest, opts ...grpc.CallOption) (*GetDepthResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetDepthResponse)
+	err := c.cc.Invoke(ctx, CryptoService_GetDepth_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cryptoServiceClient) GetTrades(ctx context.Context, in *GetTradesRequest, opts ...grpc.CallOption) (*GetTradesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetTradesResponse)
+	err := c.cc.Invoke(ctx, CryptoService_GetTrades_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *cryptoServiceClient) GetKlinesBySymbol(ctx context.Context, in *GetKlinesBySymbolRequest, opts ...grpc.CallOption) (*GetKlinesBySymbolResponse, error) {
@@ -51,6 +87,9 @@ func (c *cryptoServiceClient) GetKlinesBySymbol(ctx context.Context, in *GetKlin
 // All implementations must embed UnimplementedCryptoServiceServer
 // for forward compatibility.
 type CryptoServiceServer interface {
+	GetServerTime(context.Context, *GetServerTimeRequest) (*GetServerTimeResponse, error)
+	GetDepth(context.Context, *GetDepthRequest) (*GetDepthResponse, error)
+	GetTrades(context.Context, *GetTradesRequest) (*GetTradesResponse, error)
 	GetKlinesBySymbol(context.Context, *GetKlinesBySymbolRequest) (*GetKlinesBySymbolResponse, error)
 	mustEmbedUnimplementedCryptoServiceServer()
 }
@@ -62,6 +101,15 @@ type CryptoServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedCryptoServiceServer struct{}
 
+func (UnimplementedCryptoServiceServer) GetServerTime(context.Context, *GetServerTimeRequest) (*GetServerTimeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetServerTime not implemented")
+}
+func (UnimplementedCryptoServiceServer) GetDepth(context.Context, *GetDepthRequest) (*GetDepthResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDepth not implemented")
+}
+func (UnimplementedCryptoServiceServer) GetTrades(context.Context, *GetTradesRequest) (*GetTradesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTrades not implemented")
+}
 func (UnimplementedCryptoServiceServer) GetKlinesBySymbol(context.Context, *GetKlinesBySymbolRequest) (*GetKlinesBySymbolResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetKlinesBySymbol not implemented")
 }
@@ -84,6 +132,60 @@ func RegisterCryptoServiceServer(s grpc.ServiceRegistrar, srv CryptoServiceServe
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&CryptoService_ServiceDesc, srv)
+}
+
+func _CryptoService_GetServerTime_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetServerTimeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CryptoServiceServer).GetServerTime(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CryptoService_GetServerTime_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CryptoServiceServer).GetServerTime(ctx, req.(*GetServerTimeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CryptoService_GetDepth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDepthRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CryptoServiceServer).GetDepth(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CryptoService_GetDepth_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CryptoServiceServer).GetDepth(ctx, req.(*GetDepthRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CryptoService_GetTrades_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTradesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CryptoServiceServer).GetTrades(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CryptoService_GetTrades_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CryptoServiceServer).GetTrades(ctx, req.(*GetTradesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _CryptoService_GetKlinesBySymbol_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -111,6 +213,18 @@ var CryptoService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "crypto.v1.CryptoService",
 	HandlerType: (*CryptoServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetServerTime",
+			Handler:    _CryptoService_GetServerTime_Handler,
+		},
+		{
+			MethodName: "GetDepth",
+			Handler:    _CryptoService_GetDepth_Handler,
+		},
+		{
+			MethodName: "GetTrades",
+			Handler:    _CryptoService_GetTrades_Handler,
+		},
 		{
 			MethodName: "GetKlinesBySymbol",
 			Handler:    _CryptoService_GetKlinesBySymbol_Handler,

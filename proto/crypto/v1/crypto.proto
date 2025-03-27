@@ -5,9 +5,61 @@ package crypto.v1;
 option go_package = "/gen/go/crypto/v1";
 
 service CryptoService {
-    rpc GetKlinesBySymbol(GetKlinesBySymbolRequest) returns (GetKlinesBySymbolResponse) {}
+    rpc GetServerTime(GetServerTimeRequest) returns (GetServerTimeResponse) {};
+    rpc GetDepth(GetDepthRequest) returns (GetDepthResponse) {};
+    rpc GetTrades(GetTradesRequest) returns (GetTradesResponse) {};
+    rpc GetKlinesBySymbol(GetKlinesBySymbolRequest) returns (GetKlinesBySymbolResponse) {};
 }
 
+/* ========== GetServerTime ========== */
+message GetServerTimeRequest {}
+message GetServerTimeResponse {
+    optional int64 server_time = 1;
+}
+
+/* ========== GetDepth ========== */
+message GetDepthRequest {
+    string symbol = 1;
+    int32 limit = 2;
+}
+message GetDepthResponse {
+    int64 last_update_id = 1;
+    repeated PriceLevel bids = 2;
+    repeated PriceLevel asks = 3;
+}
+message PriceLevel {
+    string price = 1;
+    string quantity = 2;
+}
+
+/* ========== GetTrades ========== */
+message GetTradesRequest {
+    string symbol = 1;
+    int32 limit = 2;
+}
+message GetTradesResponse {
+    repeated TradeData data = 1;
+}
+message TradeData {
+    optional uint64 id = 1;
+    optional string price = 2;
+    optional string qty = 3;
+    optional string quote_qty = 4;
+    optional uint64 time = 5;
+    optional bool is_buyer_maker = 6;
+    optional bool is_best_match = 7;
+}
+
+/* ========== GetKlinesBySymbol ========== */
+message GetKlinesBySymbolRequest {
+    int64 end_time = 1;
+    int32 limit = 2;
+    string symbol = 3;
+    string interval = 4;
+}
+message GetKlinesBySymbolResponse {
+    repeated KlineData data = 1;
+}
 message KlineData {
     optional int64 open_time = 1;
     optional double open = 2;
@@ -16,15 +68,4 @@ message KlineData {
     optional double close = 5;
     optional double volume = 6;
     optional int64 close_time = 7;
-}
-
-message GetKlinesBySymbolRequest {
-    int64 end_time = 1;
-    int32 limit = 2;
-    string symbol = 3;
-    string interval = 4;
-}
-
-message GetKlinesBySymbolResponse {
-    repeated KlineData data = 1;
 }
