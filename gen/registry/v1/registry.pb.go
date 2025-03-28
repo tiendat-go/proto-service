@@ -21,6 +21,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// RegisterService
 type RegisterServiceRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ServiceName   string                 `protobuf:"bytes,1,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
@@ -117,94 +118,7 @@ func (x *RegisterServiceResponse) GetSuccess() bool {
 	return false
 }
 
-type GetServicesRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	ServiceName   string                 `protobuf:"bytes,1,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetServicesRequest) Reset() {
-	*x = GetServicesRequest{}
-	mi := &file_registry_v1_registry_proto_msgTypes[2]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetServicesRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetServicesRequest) ProtoMessage() {}
-
-func (x *GetServicesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_registry_v1_registry_proto_msgTypes[2]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetServicesRequest.ProtoReflect.Descriptor instead.
-func (*GetServicesRequest) Descriptor() ([]byte, []int) {
-	return file_registry_v1_registry_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *GetServicesRequest) GetServiceName() string {
-	if x != nil {
-		return x.ServiceName
-	}
-	return ""
-}
-
-type GetServicesResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Addresses     []string               `protobuf:"bytes,1,rep,name=addresses,proto3" json:"addresses,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetServicesResponse) Reset() {
-	*x = GetServicesResponse{}
-	mi := &file_registry_v1_registry_proto_msgTypes[3]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetServicesResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetServicesResponse) ProtoMessage() {}
-
-func (x *GetServicesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_registry_v1_registry_proto_msgTypes[3]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetServicesResponse.ProtoReflect.Descriptor instead.
-func (*GetServicesResponse) Descriptor() ([]byte, []int) {
-	return file_registry_v1_registry_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *GetServicesResponse) GetAddresses() []string {
-	if x != nil {
-		return x.Addresses
-	}
-	return nil
-}
-
+// Heartbeat
 type HeartbeatRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ServiceName   string                 `protobuf:"bytes,1,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
@@ -215,7 +129,7 @@ type HeartbeatRequest struct {
 
 func (x *HeartbeatRequest) Reset() {
 	*x = HeartbeatRequest{}
-	mi := &file_registry_v1_registry_proto_msgTypes[4]
+	mi := &file_registry_v1_registry_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -227,7 +141,7 @@ func (x *HeartbeatRequest) String() string {
 func (*HeartbeatRequest) ProtoMessage() {}
 
 func (x *HeartbeatRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_registry_v1_registry_proto_msgTypes[4]
+	mi := &file_registry_v1_registry_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -240,7 +154,7 @@ func (x *HeartbeatRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HeartbeatRequest.ProtoReflect.Descriptor instead.
 func (*HeartbeatRequest) Descriptor() ([]byte, []int) {
-	return file_registry_v1_registry_proto_rawDescGZIP(), []int{4}
+	return file_registry_v1_registry_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *HeartbeatRequest) GetServiceName() string {
@@ -266,7 +180,7 @@ type HeartbeatResponse struct {
 
 func (x *HeartbeatResponse) Reset() {
 	*x = HeartbeatResponse{}
-	mi := &file_registry_v1_registry_proto_msgTypes[5]
+	mi := &file_registry_v1_registry_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -278,7 +192,7 @@ func (x *HeartbeatResponse) String() string {
 func (*HeartbeatResponse) ProtoMessage() {}
 
 func (x *HeartbeatResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_registry_v1_registry_proto_msgTypes[5]
+	mi := &file_registry_v1_registry_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -291,7 +205,7 @@ func (x *HeartbeatResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HeartbeatResponse.ProtoReflect.Descriptor instead.
 func (*HeartbeatResponse) Descriptor() ([]byte, []int) {
-	return file_registry_v1_registry_proto_rawDescGZIP(), []int{5}
+	return file_registry_v1_registry_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *HeartbeatResponse) GetSuccess() bool {
@@ -299,6 +213,184 @@ func (x *HeartbeatResponse) GetSuccess() bool {
 		return x.Success
 	}
 	return false
+}
+
+// GetServices
+type GetServicesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ServiceName   string                 `protobuf:"bytes,1,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetServicesRequest) Reset() {
+	*x = GetServicesRequest{}
+	mi := &file_registry_v1_registry_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetServicesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetServicesRequest) ProtoMessage() {}
+
+func (x *GetServicesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_v1_registry_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetServicesRequest.ProtoReflect.Descriptor instead.
+func (*GetServicesRequest) Descriptor() ([]byte, []int) {
+	return file_registry_v1_registry_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *GetServicesRequest) GetServiceName() string {
+	if x != nil {
+		return x.ServiceName
+	}
+	return ""
+}
+
+type GetServicesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Addresses     []string               `protobuf:"bytes,1,rep,name=addresses,proto3" json:"addresses,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetServicesResponse) Reset() {
+	*x = GetServicesResponse{}
+	mi := &file_registry_v1_registry_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetServicesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetServicesResponse) ProtoMessage() {}
+
+func (x *GetServicesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_v1_registry_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetServicesResponse.ProtoReflect.Descriptor instead.
+func (*GetServicesResponse) Descriptor() ([]byte, []int) {
+	return file_registry_v1_registry_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *GetServicesResponse) GetAddresses() []string {
+	if x != nil {
+		return x.Addresses
+	}
+	return nil
+}
+
+// GetRandService
+type GetRandServiceRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ServiceName   string                 `protobuf:"bytes,1,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetRandServiceRequest) Reset() {
+	*x = GetRandServiceRequest{}
+	mi := &file_registry_v1_registry_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetRandServiceRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRandServiceRequest) ProtoMessage() {}
+
+func (x *GetRandServiceRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_v1_registry_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRandServiceRequest.ProtoReflect.Descriptor instead.
+func (*GetRandServiceRequest) Descriptor() ([]byte, []int) {
+	return file_registry_v1_registry_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *GetRandServiceRequest) GetServiceName() string {
+	if x != nil {
+		return x.ServiceName
+	}
+	return ""
+}
+
+type GetRandServiceResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Address       string                 `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetRandServiceResponse) Reset() {
+	*x = GetRandServiceResponse{}
+	mi := &file_registry_v1_registry_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetRandServiceResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRandServiceResponse) ProtoMessage() {}
+
+func (x *GetRandServiceResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_v1_registry_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRandServiceResponse.ProtoReflect.Descriptor instead.
+func (*GetRandServiceResponse) Descriptor() ([]byte, []int) {
+	return file_registry_v1_registry_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *GetRandServiceResponse) GetAddress() string {
+	if x != nil {
+		return x.Address
+	}
+	return ""
 }
 
 var File_registry_v1_registry_proto protoreflect.FileDescriptor
@@ -310,20 +402,25 @@ const file_registry_v1_registry_proto_rawDesc = "" +
 	"\fservice_name\x18\x01 \x01(\tR\vserviceName\x12\x18\n" +
 	"\aaddress\x18\x02 \x01(\tR\aaddress\"3\n" +
 	"\x17RegisterServiceResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess\"7\n" +
-	"\x12GetServicesRequest\x12!\n" +
-	"\fservice_name\x18\x01 \x01(\tR\vserviceName\"3\n" +
-	"\x13GetServicesResponse\x12\x1c\n" +
-	"\taddresses\x18\x01 \x03(\tR\taddresses\"O\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"O\n" +
 	"\x10HeartbeatRequest\x12!\n" +
 	"\fservice_name\x18\x01 \x01(\tR\vserviceName\x12\x18\n" +
 	"\aaddress\x18\x02 \x01(\tR\aaddress\"-\n" +
 	"\x11HeartbeatResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess2\x8e\x02\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"7\n" +
+	"\x12GetServicesRequest\x12!\n" +
+	"\fservice_name\x18\x01 \x01(\tR\vserviceName\"3\n" +
+	"\x13GetServicesResponse\x12\x1c\n" +
+	"\taddresses\x18\x01 \x03(\tR\taddresses\":\n" +
+	"\x15GetRandServiceRequest\x12!\n" +
+	"\fservice_name\x18\x01 \x01(\tR\vserviceName\"2\n" +
+	"\x16GetRandServiceResponse\x12\x18\n" +
+	"\aaddress\x18\x01 \x01(\tR\aaddress2\xe9\x02\n" +
 	"\x10DiscoveryService\x12\\\n" +
-	"\x0fRegisterService\x12#.registry.v1.RegisterServiceRequest\x1a$.registry.v1.RegisterServiceResponse\x12P\n" +
-	"\vGetServices\x12\x1f.registry.v1.GetServicesRequest\x1a .registry.v1.GetServicesResponse\x12J\n" +
-	"\tHeartbeat\x12\x1d.registry.v1.HeartbeatRequest\x1a\x1e.registry.v1.HeartbeatResponseB\x82\x01\n" +
+	"\x0fRegisterService\x12#.registry.v1.RegisterServiceRequest\x1a$.registry.v1.RegisterServiceResponse\x12J\n" +
+	"\tHeartbeat\x12\x1d.registry.v1.HeartbeatRequest\x1a\x1e.registry.v1.HeartbeatResponse\x12P\n" +
+	"\vGetServices\x12\x1f.registry.v1.GetServicesRequest\x1a .registry.v1.GetServicesResponse\x12Y\n" +
+	"\x0eGetRandService\x12\".registry.v1.GetRandServiceRequest\x1a#.registry.v1.GetRandServiceResponseB\x82\x01\n" +
 	"\x0fcom.registry.v1B\rRegistryProtoP\x01Z\x13/gen/go/registry/v1\xa2\x02\x03RXX\xaa\x02\vRegistry.V1\xca\x02\vRegistry\\V1\xe2\x02\x17Registry\\V1\\GPBMetadata\xea\x02\fRegistry::V1b\x06proto3"
 
 var (
@@ -338,24 +435,28 @@ func file_registry_v1_registry_proto_rawDescGZIP() []byte {
 	return file_registry_v1_registry_proto_rawDescData
 }
 
-var file_registry_v1_registry_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_registry_v1_registry_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_registry_v1_registry_proto_goTypes = []any{
 	(*RegisterServiceRequest)(nil),  // 0: registry.v1.RegisterServiceRequest
 	(*RegisterServiceResponse)(nil), // 1: registry.v1.RegisterServiceResponse
-	(*GetServicesRequest)(nil),      // 2: registry.v1.GetServicesRequest
-	(*GetServicesResponse)(nil),     // 3: registry.v1.GetServicesResponse
-	(*HeartbeatRequest)(nil),        // 4: registry.v1.HeartbeatRequest
-	(*HeartbeatResponse)(nil),       // 5: registry.v1.HeartbeatResponse
+	(*HeartbeatRequest)(nil),        // 2: registry.v1.HeartbeatRequest
+	(*HeartbeatResponse)(nil),       // 3: registry.v1.HeartbeatResponse
+	(*GetServicesRequest)(nil),      // 4: registry.v1.GetServicesRequest
+	(*GetServicesResponse)(nil),     // 5: registry.v1.GetServicesResponse
+	(*GetRandServiceRequest)(nil),   // 6: registry.v1.GetRandServiceRequest
+	(*GetRandServiceResponse)(nil),  // 7: registry.v1.GetRandServiceResponse
 }
 var file_registry_v1_registry_proto_depIdxs = []int32{
 	0, // 0: registry.v1.DiscoveryService.RegisterService:input_type -> registry.v1.RegisterServiceRequest
-	2, // 1: registry.v1.DiscoveryService.GetServices:input_type -> registry.v1.GetServicesRequest
-	4, // 2: registry.v1.DiscoveryService.Heartbeat:input_type -> registry.v1.HeartbeatRequest
-	1, // 3: registry.v1.DiscoveryService.RegisterService:output_type -> registry.v1.RegisterServiceResponse
-	3, // 4: registry.v1.DiscoveryService.GetServices:output_type -> registry.v1.GetServicesResponse
-	5, // 5: registry.v1.DiscoveryService.Heartbeat:output_type -> registry.v1.HeartbeatResponse
-	3, // [3:6] is the sub-list for method output_type
-	0, // [0:3] is the sub-list for method input_type
+	2, // 1: registry.v1.DiscoveryService.Heartbeat:input_type -> registry.v1.HeartbeatRequest
+	4, // 2: registry.v1.DiscoveryService.GetServices:input_type -> registry.v1.GetServicesRequest
+	6, // 3: registry.v1.DiscoveryService.GetRandService:input_type -> registry.v1.GetRandServiceRequest
+	1, // 4: registry.v1.DiscoveryService.RegisterService:output_type -> registry.v1.RegisterServiceResponse
+	3, // 5: registry.v1.DiscoveryService.Heartbeat:output_type -> registry.v1.HeartbeatResponse
+	5, // 6: registry.v1.DiscoveryService.GetServices:output_type -> registry.v1.GetServicesResponse
+	7, // 7: registry.v1.DiscoveryService.GetRandService:output_type -> registry.v1.GetRandServiceResponse
+	4, // [4:8] is the sub-list for method output_type
+	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -372,7 +473,7 @@ func file_registry_v1_registry_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_registry_v1_registry_proto_rawDesc), len(file_registry_v1_registry_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

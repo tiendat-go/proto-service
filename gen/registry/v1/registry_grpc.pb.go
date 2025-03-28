@@ -20,8 +20,9 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	DiscoveryService_RegisterService_FullMethodName = "/registry.v1.DiscoveryService/RegisterService"
-	DiscoveryService_GetServices_FullMethodName     = "/registry.v1.DiscoveryService/GetServices"
 	DiscoveryService_Heartbeat_FullMethodName       = "/registry.v1.DiscoveryService/Heartbeat"
+	DiscoveryService_GetServices_FullMethodName     = "/registry.v1.DiscoveryService/GetServices"
+	DiscoveryService_GetRandService_FullMethodName  = "/registry.v1.DiscoveryService/GetRandService"
 )
 
 // DiscoveryServiceClient is the client API for DiscoveryService service.
@@ -29,8 +30,9 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DiscoveryServiceClient interface {
 	RegisterService(ctx context.Context, in *RegisterServiceRequest, opts ...grpc.CallOption) (*RegisterServiceResponse, error)
-	GetServices(ctx context.Context, in *GetServicesRequest, opts ...grpc.CallOption) (*GetServicesResponse, error)
 	Heartbeat(ctx context.Context, in *HeartbeatRequest, opts ...grpc.CallOption) (*HeartbeatResponse, error)
+	GetServices(ctx context.Context, in *GetServicesRequest, opts ...grpc.CallOption) (*GetServicesResponse, error)
+	GetRandService(ctx context.Context, in *GetRandServiceRequest, opts ...grpc.CallOption) (*GetRandServiceResponse, error)
 }
 
 type discoveryServiceClient struct {
@@ -51,6 +53,16 @@ func (c *discoveryServiceClient) RegisterService(ctx context.Context, in *Regist
 	return out, nil
 }
 
+func (c *discoveryServiceClient) Heartbeat(ctx context.Context, in *HeartbeatRequest, opts ...grpc.CallOption) (*HeartbeatResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(HeartbeatResponse)
+	err := c.cc.Invoke(ctx, DiscoveryService_Heartbeat_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *discoveryServiceClient) GetServices(ctx context.Context, in *GetServicesRequest, opts ...grpc.CallOption) (*GetServicesResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetServicesResponse)
@@ -61,10 +73,10 @@ func (c *discoveryServiceClient) GetServices(ctx context.Context, in *GetService
 	return out, nil
 }
 
-func (c *discoveryServiceClient) Heartbeat(ctx context.Context, in *HeartbeatRequest, opts ...grpc.CallOption) (*HeartbeatResponse, error) {
+func (c *discoveryServiceClient) GetRandService(ctx context.Context, in *GetRandServiceRequest, opts ...grpc.CallOption) (*GetRandServiceResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(HeartbeatResponse)
-	err := c.cc.Invoke(ctx, DiscoveryService_Heartbeat_FullMethodName, in, out, cOpts...)
+	out := new(GetRandServiceResponse)
+	err := c.cc.Invoke(ctx, DiscoveryService_GetRandService_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -76,8 +88,9 @@ func (c *discoveryServiceClient) Heartbeat(ctx context.Context, in *HeartbeatReq
 // for forward compatibility.
 type DiscoveryServiceServer interface {
 	RegisterService(context.Context, *RegisterServiceRequest) (*RegisterServiceResponse, error)
-	GetServices(context.Context, *GetServicesRequest) (*GetServicesResponse, error)
 	Heartbeat(context.Context, *HeartbeatRequest) (*HeartbeatResponse, error)
+	GetServices(context.Context, *GetServicesRequest) (*GetServicesResponse, error)
+	GetRandService(context.Context, *GetRandServiceRequest) (*GetRandServiceResponse, error)
 	mustEmbedUnimplementedDiscoveryServiceServer()
 }
 
@@ -91,11 +104,14 @@ type UnimplementedDiscoveryServiceServer struct{}
 func (UnimplementedDiscoveryServiceServer) RegisterService(context.Context, *RegisterServiceRequest) (*RegisterServiceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterService not implemented")
 }
+func (UnimplementedDiscoveryServiceServer) Heartbeat(context.Context, *HeartbeatRequest) (*HeartbeatResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Heartbeat not implemented")
+}
 func (UnimplementedDiscoveryServiceServer) GetServices(context.Context, *GetServicesRequest) (*GetServicesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServices not implemented")
 }
-func (UnimplementedDiscoveryServiceServer) Heartbeat(context.Context, *HeartbeatRequest) (*HeartbeatResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Heartbeat not implemented")
+func (UnimplementedDiscoveryServiceServer) GetRandService(context.Context, *GetRandServiceRequest) (*GetRandServiceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRandService not implemented")
 }
 func (UnimplementedDiscoveryServiceServer) mustEmbedUnimplementedDiscoveryServiceServer() {}
 func (UnimplementedDiscoveryServiceServer) testEmbeddedByValue()                          {}
@@ -136,24 +152,6 @@ func _DiscoveryService_RegisterService_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DiscoveryService_GetServices_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetServicesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DiscoveryServiceServer).GetServices(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: DiscoveryService_GetServices_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscoveryServiceServer).GetServices(ctx, req.(*GetServicesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _DiscoveryService_Heartbeat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(HeartbeatRequest)
 	if err := dec(in); err != nil {
@@ -172,6 +170,42 @@ func _DiscoveryService_Heartbeat_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DiscoveryService_GetServices_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetServicesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DiscoveryServiceServer).GetServices(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DiscoveryService_GetServices_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DiscoveryServiceServer).GetServices(ctx, req.(*GetServicesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DiscoveryService_GetRandService_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRandServiceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DiscoveryServiceServer).GetRandService(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DiscoveryService_GetRandService_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DiscoveryServiceServer).GetRandService(ctx, req.(*GetRandServiceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DiscoveryService_ServiceDesc is the grpc.ServiceDesc for DiscoveryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -184,12 +218,16 @@ var DiscoveryService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DiscoveryService_RegisterService_Handler,
 		},
 		{
+			MethodName: "Heartbeat",
+			Handler:    _DiscoveryService_Heartbeat_Handler,
+		},
+		{
 			MethodName: "GetServices",
 			Handler:    _DiscoveryService_GetServices_Handler,
 		},
 		{
-			MethodName: "Heartbeat",
-			Handler:    _DiscoveryService_Heartbeat_Handler,
+			MethodName: "GetRandService",
+			Handler:    _DiscoveryService_GetRandService_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
